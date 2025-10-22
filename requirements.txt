@@ -1,2 +1,4 @@
 selenium
 pytest
+behave
+webdriver-manager
