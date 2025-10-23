@@ -1,169 +1,193 @@
-Berikut contoh **README.md** profesional untuk proyekmu (BDD testing sistem login React + Selenium).
-Strukturnya sudah disesuaikan agar langsung bisa dipakai di GitHub 👇
+## 🧪 Behavior-Driven Development (BDD) Login Testing with Behave & Selenium
+
+### 📘 Overview
+
+This project demonstrates the implementation of **Behavior-Driven Development (BDD)** testing for a web-based login system using **Behave** and **Selenium WebDriver** in Python.
+
+The goal is to test both **Lecturer** and **Student** login functionalities, ensuring that the system behaves correctly according to the defined user stories.
 
 ---
 
-```markdown
-# 🧪 Automated BDD Testing — Essay Scoring System Login
-
-Proyek ini berisi **pengujian otomatis (BDD)** menggunakan **Selenium + Python (unittest)** untuk memverifikasi proses **login sistem web Essay Scoring System** yang dibangun dengan **Next.js (React)**.  
-Tujuan utamanya adalah memastikan alur login untuk **Dosen (Lecturer)** dan **Mahasiswa (Student)** berjalan dengan benar.
-
----
-
-## 🚀 Fitur Utama
-
-✅ Pengujian otomatis halaman login berbasis browser (UI Testing)  
-✅ Dukungan **BDD-style** (Given–When–Then)  
-✅ Struktur modular dengan `BaseTest`  
-✅ Otomatis unduh & setup ChromeDriver via `webdriver_manager`  
-✅ Uji login sukses dan gagal untuk dua role pengguna  
-✅ Dukungan toast message asinkron (`sonner`)
-
----
-
-## 🧩 Struktur Folder
+### 🧱 Project Structure
 
 ```
-
-📦 BDD
+project/
+│
+├── features/
+│   ├── login.feature                # BDD Scenarios written in Gherkin
+│   └── steps/
+│       └── login_steps.py           # Step definitions implemented in Python
+│
 ├── utils/
-│   └── base_test.py         # Kelas dasar Selenium (setup, teardown, helper)
-├── test/
-│   └── test_user_login.py   # Test BDD untuk login Dosen & Mahasiswa
-├── venv/                    # Virtual environment Python (opsional)
-├── requirements.txt         # Dependencies proyek
-└── README.md                # Dokumentasi proyek (file ini)
-
-````
+│   └── base_test.py                 # Base class for WebDriver setup and helper methods
+│
+├── requirements.txt                 # Dependencies list
+└── README.md                        # Project documentation
+```
 
 ---
 
-## 🛠️ Instalasi dan Setup
+### ⚙️ Requirements
 
-### 1️⃣ Clone Repositori
-
-```bash
-git clone https://github.com/<your-username>/bdd-login-test.git
-cd bdd-login-test
-````
-
-### 2️⃣ Buat Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-Aktifkan environment:
-
-* **Windows:**
-
-  ```bash
-  venv\Scripts\activate
-  ```
-* **Mac/Linux:**
-
-  ```bash
-  source venv/bin/activate
-  ```
-
-### 3️⃣ Install Dependencies
+Make sure you have **Python 3.8+** installed.
+Then, install the dependencies listed below:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Contoh isi `requirements.txt`:
+#### 📦 Contents of `requirements.txt`
 
-```
+```txt
+behave
 selenium
 webdriver-manager
-unittest-xml-reporting
+pytest
 ```
 
 ---
 
-## 🧠 Struktur Testing
+### 🚀 How to Run the Tests
 
-### 🔹 BaseTest — `utils/base_test.py`
+1. **Ensure Chrome browser is installed** on your computer.
+   (ChromeDriver will be automatically managed by `webdriver-manager`.)
 
-Kelas dasar yang mengatur:
+2. **Start your web application** (e.g., `http://localhost:3000/login`).
 
-* Inisialisasi ChromeDriver otomatis
-* Helper `find()` dan `click_and_wait()`
-* TearDown otomatis menutup browser
-* Exception handling bawaan Selenium
+3. **Run all BDD test scenarios** using the following command:
 
-### 🔹 Test File — `test/test_user_login.py`
+   ```bash
+   behave
+   ```
 
-Berisi dua kelas pengujian:
+4. **Expected output example:**
 
-* `LecturerLoginTest`
-* `StudentLoginTest`
+   ```bash
+   Feature: User Login Functionality
 
-Setiap test mencakup:
+     Scenario: Lecturer successfully logs in
+       Given the user opens the login page
+       When the user enters email "michael01@gmail.com" and password "password123"
+       And clicks the "Login" button
+       Then the system should display the message "success login user"
+       ✅ Passed
 
-* `test_login_success` — login dengan kredensial valid
-* `test_login_failed_invalid_credentials` — login dengan kredensial salah
+     Scenario: Student login fails with invalid credentials
+       Given the user opens the login page
+       ...
+       ✅ Passed
 
----
-
-## ⚙️ Menjalankan Test
-
-Pastikan server frontend (Next.js) kamu sudah **berjalan di `http://localhost:3000`**.
-
-Lalu jalankan:
-
-```bash
-python -m unittest discover -s test
-```
-
-Output yang diharapkan:
-
-```
-[INFO] ChromeDriver aktif di: ...
-....
-----------------------------------------------------------------------
-Ran 4 tests in 35.5s
-
-OK
-```
-
-Jika kredensial salah, test akan menampilkan toast error seperti:
-
-```
-❌ Scenario: Failed login due to invalid credentials (Lecturer)
-Toast: "Failed login user"
-```
+   4 scenarios passed (4 passed)
+   0 failed, 0 skipped
+   ```
 
 ---
 
-## 🧾 Contoh Test BDD
+### 🧩 BDD Feature Explanation
+
+#### 📄 `features/login.feature`
+
+Written in **Gherkin syntax**, describing test behavior in natural English:
+
+```gherkin
+Feature: User Login Functionality
+
+  Scenario: Lecturer successfully logs in
+    Given the user opens the login page
+    When the user enters email "michael01@gmail.com" and password "password123"
+    And clicks the "Login" button
+    Then the system should display the message "success login user"
+```
+
+This format allows developers, testers, and non-technical stakeholders to **understand the system behavior clearly** without needing to read the code.
+
+---
+
+### 💻 Step Definitions
+
+#### 🧠 `features/steps/login_steps.py`
+
+This file implements the behavior described in `login.feature` using **Selenium WebDriver** and the helper class from `utils/base_test.py`.
+
+Example:
 
 ```python
-def test_lecturer_login_failed_invalid_credentials(self):
-    """Scenario: Failed login due to invalid credentials (Lecturer)
-    Given Lecturer is on the login page
-    When they enter invalid email or password
-    Then an error toast should appear
-    """
-    self.driver.get(self.login_url)
-    self.find(By.ID, "email").send_keys("michael01@gmail.com")
-    self.find(By.ID, "password").send_keys("wrongpass")
-    self.find(By.ID, "login-button").click()
-
-    error_message = self.wait_for_toast()
-    self.assertIn("failed", error_message.lower())
+@given('the user opens the login page')
+def step_open_login_page(context):
+    base.driver.get("http://localhost:3000/login")
 ```
 
 ---
 
-## 🧰 Debugging Tips
+### 🔧 `utils/base_test.py`
 
-🔹 Jika muncul error `NoSuchElementException`, periksa:
+Handles browser setup and utility methods:
 
-* ID element benar (`email`, `password`, `login-button`)
-* Toast muncul di DOM (gunakan `print(self.driver.page_source[:1000])`)
-* Server lokal sudah berjalan (`npm run dev`)
+* Launches and configures Chrome WebDriver.
+* Provides reusable helper methods like:
 
-🔹 Tambahkan `time.sleep(3)` sementara untuk menunggu animasi toast (hanya untuk debugging).
+  * `find(by, locator)`
+  * `wait_for(by, locator)`
+  * `click_and_wait(by, locator)`
+
+Example:
+
+```python
+def setUp(self):
+    service = Service(ChromeDriverManager().install())
+    self.driver = webdriver.Chrome(service=service, options=chrome_options)
+    self.wait = WebDriverWait(self.driver, 10)
+```
+
+---
+
+### 🧾 Test Scenarios Included
+
+| No | Scenario Description                  | Expected Result                             |
+| -- | ------------------------------------- | ------------------------------------------- |
+| 1  | Lecturer login with valid credentials | “success login user” message appears        |
+| 2  | Lecturer login with invalid password  | “invalid login credentials” message appears |
+| 3  | Student login with valid credentials  | “success login user” message appears        |
+| 4  | Student login with invalid password   | “invalid login credentials” message appears |
+
+---
+
+### 📊 Key Concepts Highlighted
+
+* **Behavior-Driven Development (BDD)** methodology.
+* **Readable test cases** using Gherkin (`Given–When–Then`).
+* **Automated UI testing** via Selenium WebDriver.
+* **Reusability & maintainability** through BaseTest abstraction.
+
+---
+
+### 🧠 Why Use BDD?
+
+BDD bridges the gap between:
+
+* **Developers**, who write the logic,
+* **Testers**, who validate behavior, and
+* **Stakeholders**, who define business goals.
+
+This ensures that the **system is built and tested based on expected user behavior**, not just technical correctness.
+
+---
+
+### 🧹 Clean Up
+
+After the tests finish, Behave automatically quits the browser instance using `base.tearDown()` to prevent leftover Chrome processes.
+
+---
+
+### 🏁 Summary
+
+| Tool                  | Purpose                              |
+| --------------------- | ------------------------------------ |
+| **Behave**            | Define human-readable test scenarios |
+| **Selenium**          | Automate browser interactions        |
+| **webdriver-manager** | Manage ChromeDriver automatically    |
+| **BaseTest**          | Reusable setup and helper functions  |
+
+---
+
+Would you like me to make the **README version for the old unittest-style BDD (like the one in your PDF)** too — so you can show both approaches side by side in your report?
