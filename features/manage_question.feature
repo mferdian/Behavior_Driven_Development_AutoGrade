@@ -1,3 +1,4 @@
+@order2
 Feature: Manage Exam Questions Functionality
   As a lecturer
   I want to manage exam questions
@@ -24,16 +25,16 @@ Feature: Manage Exam Questions Functionality
 
   Scenario: Lecturer edits an existing question
     Given The lecturer has selected an existing exam with id "851e51bc-ed0a-4abd-868a-6f4a1d413aa0"
-    And The lecturer has an existing question with id "76036246-bcdb-4e4a-9b35-e08c5b34c228"
+    And The lecturer has an existing question with id "a242da7d-daf1-417c-8945-f1e41aa2c7fe"
     When The lecturer clicks the options menu (three dots) and selects "Edit"
-    Then The system redirects the lecturer to the edit question page for exam "851e51bc-ed0a-4abd-868a-6f4a1d413aa0" and question "76036246-bcdb-4e4a-9b35-e08c5b34c228"
+    Then The system redirects the lecturer to the edit question page for exam "851e51bc-ed0a-4abd-868a-6f4a1d413aa0" and question "a242da7d-daf1-417c-8945-f1e41aa2c7fe"
     When The lecturer modifies the question details and clicks the "Simpan" button
     Then The system displays the message "success update question"
     And The system redirects the lecturer to the exam page "851e51bc-ed0a-4abd-868a-6f4a1d413aa0"
 
   Scenario: Lecturer deletes an existing question
     Given The lecturer has selected an existing exam with id "851e51bc-ed0a-4abd-868a-6f4a1d413aa0"
-    And The lecturer has an existing question with id "76036246-bcdb-4e4a-9b35-e08c5b34c228"
+    And The lecturer has an existing question with id "a242da7d-daf1-417c-8945-f1e41aa2c7fe"
     When The lecturer clicks the options menu (three dots) and selects "Delete"
     Then The system displays the message "success delete question"
     And Removes the question from the list

@@ -1,3 +1,4 @@
+@order1
 Feature: User Login Functionality
 
   Scenario: Lecturer successfully logs in
