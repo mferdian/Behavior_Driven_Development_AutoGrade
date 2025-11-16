@@ -29,7 +29,7 @@ def step_existing_exam(context,exam_name):
 @when('The lecturer clicks the three-dot (⋮) option next to the exam')
 def step_click_option(context):
     button = WebDriverWait(context.driver, 10).until(
-        EC.element_to_be_clickable((By.ID, "option-b561c37d-58de-4790-9608-0c5bd89829f9"))
+        EC.element_to_be_clickable((By.ID, "option-9e58d667-b09e-4189-a2c0-9ccc626347d3"))
     )
     ActionChains(context.driver).move_to_element(button).perform()
     time.sleep(1)
@@ -115,14 +115,14 @@ def step_verify_success_create(context):
     assert "Success create exam".lower() in toast.text.lower()
     
 @then('The system displays the message "Success update exam"')
-def step_verify_success_update(context):
+def step_verify_success_create(context):
     toast = WebDriverWait(context.driver, 10).until(
         EC.visibility_of_element_located((By.CLASS_NAME, "toasterr"))
     )
     assert "Success update exam".lower() in toast.text.lower()
 
 @then('The system displays the message "Success delete exam"')
-def step_verify_success_delete(context):
+def step_verify_success_create(context):
     toast = WebDriverWait(context.driver, 10).until(
         EC.visibility_of_element_located((By.CLASS_NAME, "toasterr"))
     )

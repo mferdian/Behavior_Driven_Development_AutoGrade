@@ -16,7 +16,7 @@ Feature: Manage Exam Functionality
     And The existing exam "Software Engineering" is displayed in the exam list
     When The lecturer clicks the three-dot (⋮) option next to the exam
     And Selects the "View" option
-    Then The system redirects the lecturer to "/teachers/exams/f660eeff-8209-4247-922f-c54216a0423f"
+    Then The system redirects the lecturer to "/teachers/exams/9e58d667-b09e-4189-a2c0-9ccc626347d3"
 
   Scenario: Lecturer edits an existing exam
     Given The lecturer navigates to the "Ujian" menu
