@@ -17,7 +17,7 @@ def step_enter_credentials(context, email, password):
     base.find(By.ID, "password").clear()
     base.find(By.ID, "password").send_keys(password)
 
-@when('clicks the "Login" button')
+@when('the user clicks the login button')
 def step_click_login(context):
     base.find(By.ID, "login-button").click()
     time.sleep(1)
